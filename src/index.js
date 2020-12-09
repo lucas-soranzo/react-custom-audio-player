@@ -310,7 +310,7 @@ export default class AudioPlayer extends Component {
   //   }
   // }
 
-  togglePause(value) {
+  togglePause(value, errorCallback = () => null) {
     if (!this.audio) {
       return;
     }
@@ -322,7 +322,7 @@ export default class AudioPlayer extends Component {
       return;
     }
     try {
-      this.audioPromise = this.audio.play();
+      this.audioPromise = this.audio.play().catch(errorCallback);
       if (this.audio.readyState === 0) {
         this.setState({ loading: true });
       }
